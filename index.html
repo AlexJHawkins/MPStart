@@ -110,7 +110,18 @@ DELL1 | Initialising Extensions | MultiPlug</title>
 	border-radius: 50%;
 	display: inline-block;
 	}
-
+	
+	.square {
+  height: 175px;
+  width: 300px;
+  background-color: white;
+  margin: auto;
+  border-color: #3f51b5;
+  border-width: 5px;
+  border-style: solid;
+  margin-top: 35px;
+  border-radius: 12px;
+}
 	
 </style>
 
@@ -124,23 +135,26 @@ DELL1 | Initialising Extensions | MultiPlug</title>
 						<div class="staticlogo loading"></div>
 						<div class="loader loading"></div>	
 						<div class="dot"></div>
-					</div>  
-					<h1>MultiPlug is starting</h1>
-
-					<p class="stage-status"><span>Initialising Extensions</span></p>
-					<p id="auto-refresh-note">This page will be reloaded automatically</p>
-
-					<noscript>
-						<div class="nojs-message">
-							Please enable JavaScript in your browser to access MultiPlug.
-						</div>
-					</noscript>
-
-					<div id="footer2">2.2.81.0</div>
 					</div>
+
+						<div class="square">
+							<h1>MultiPlug is starting</h1>
+
+							<p class="stage-status"><span>Initialising Extensions</span></p>
+							<p id="auto-refresh-note">This page will be reloaded automatically</p>
+
+							<noscript>
+								<div class="nojs-message">
+									Please enable JavaScript in your browser to access MultiPlug.
+								</div>
+							</noscript>
+
+							<div id="footer2">2.2.81.0</div>
+						</div>
 				</div>
-            </div>
-        </div>
+			</div>
+		</div>
+	</div>
     <script>
             (function check() {
                 var xmlhttp = new XMLHttpRequest();
