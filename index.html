@@ -44,10 +44,10 @@ DELL1 | Initialising Extensions | MultiPlug</title>
   100% { -webkit-transform: rotate(360deg); }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
+	}
 
     html {
         height: 100%;
@@ -103,6 +103,16 @@ DELL1 | Initialising Extensions | MultiPlug</title>
         line-height: 20px;
     }
 	
+	.dot {
+	height: 175px;
+	width: 175px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	}
+
+
+	
 </style>
 
     </head>
@@ -114,6 +124,7 @@ DELL1 | Initialising Extensions | MultiPlug</title>
 					<div class="logo-middle">
 						<div class="staticlogo loading"></div>
 						<div class="loader loading"></div>	
+						<div class="dot"></div>
 					</div>  
 					<h1>MultiPlug is starting</h1>
 
