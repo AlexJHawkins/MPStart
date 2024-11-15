@@ -85,9 +85,23 @@ DELL1 | Initialising Extensions...| MultiPlug</title>
         padding-top: 115px;
         padding-bottom: 115px;
     }
+	
+	#refresh-enabled
+	{
+		height: 45px;
+	}
 
-	#auto-refresh-note {
+	#refresh-auto {
+		display: none;
 		color: #bebebe;
+		margin: 0px;
+		padding-top: 12px;
+	}
+	
+	#refresh-btn {
+		display:none;
+		margin-top: 10px;
+		margin-bottom: 14px;
 	}
 
 	#version {
@@ -133,11 +147,6 @@ DELL1 | Initialising Extensions...| MultiPlug</title>
 	overflow: hidden;
 	}
 
-/**
- * ==============================================
- * Dot Pulse
- * ==============================================
- */
 	.dot-pulse {
 	  position: relative;
 	  left: -9999px;
@@ -236,7 +245,10 @@ DELL1 | Initialising Extensions...| MultiPlug</title>
 							<div class="dot-pulse"></div>
 						</div>
 
-						<p id="auto-refresh-note">This page will be reloaded automatically</p>
+						<div id="refresh-enabled">
+							<p id="refresh-auto">This page will be reloaded automatically</p>
+							<button id="refresh-btn" onclick="refreshPage()">Recheck Status</button>						
+						</div>
 
 						<noscript>
 							<div class="nojs-message">
@@ -249,28 +261,49 @@ DELL1 | Initialising Extensions...| MultiPlug</title>
 			</div>
 		</div>
 	</div>
-    <script>
-            (function check() {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-                        if (xmlhttp.status == 200) {
-                            var jsonResponse = JSON.parse(xmlhttp.responseText);
-                            if (jsonResponse.state == "running") {
-                                window.location = window.location.href;
-                            }
-                            else {
-                                setTimeout(check, 2000);
-                            }
-                        }
-                        else {
-                            setTimeout(check, 2000);
-                        }
-                    }
-                };
-                xmlhttp.open("GET", "/multiplug/status/", true);
-                xmlhttp.send();
-            }());
-    </script>
-    </body>
+	<script>
+		function refreshPage()
+		{
+			window.location = window.location.href;	
+		}
+
+		(function checkStatus() {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+					if (xmlhttp.status == 200) {
+						var jsonResponse = JSON.parse(xmlhttp.responseText);
+						if (jsonResponse.state == "running") {
+							window.location = window.location.href;
+						}
+						else {
+							document.getElementById("refresh-auto").style.display = "block";
+							document.getElementById("refresh-btn").style.display = "none";
+							setTimeout(checkStatus, 2000);
+						}
+					}
+					else if(xmlhttp.status == 401)
+					{
+						document.getElementById("refresh-auto").style.display = "none";
+						document.getElementById("refresh-btn").style.display = "inline-block";
+					}
+					else {
+						document.getElementById("refresh-auto").style.display = "none";
+						document.getElementById("refresh-btn").style.display = "none";
+						setTimeout(checkStatus, 2000);
+					}
+				}
+			};
+
+			try {
+				xmlhttp.open("GET", "/multiplug/status/", true);		
+			xmlhttp.send();
+			}
+			catch (error) {
+				document.getElementById("refresh-auto").style.display = "none";
+				document.getElementById("refresh-btn").style.display = "inline-block";		
+			}
+		}());
+	</script>
+	</body>
 </html>
